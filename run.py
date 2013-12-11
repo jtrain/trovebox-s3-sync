@@ -19,6 +19,8 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
     base, ext = os.path.splitext(key.name)
     # skip folders.
     if not ext: continue
+    # skip dot files.
+    if base.startswith('.'): continue
 
     # set up an album if required.
     album = os.path.basename(os.path.dirname(key.name))
