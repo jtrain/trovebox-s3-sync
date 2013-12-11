@@ -24,6 +24,9 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
 
     # set up an album if required.
     album = os.path.basename(os.path.dirname(key.name))
+    # ignore dotfile albums like .picasaoriginals.
+    if album.startswith('.'): continue
+
     if album != key.name and not album in albums:
         albums[album] = client.album.create(album)
         album = albums[album]
