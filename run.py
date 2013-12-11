@@ -25,7 +25,8 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
     # set up an album if required.
     album = os.path.basename(os.path.dirname(key.name))
     if album != key.name and not album in albums:
-        albums.add(album)
+        albums[album] = client.album.create(album)
+        album = albums[album]
     else:
         album = albums.get(album)
         
