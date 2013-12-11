@@ -20,7 +20,7 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
 
     base, ext = os.path.splitext(key.name)
     # only photos
-    if not ext.lower() in PHOTO_EXTENSIONS: continue
+    if not ext.lower()[1:] in PHOTO_EXTENSIONS: continue
 
     # set up an album if required.
     album = os.path.basename(os.path.dirname(key.name))
@@ -48,7 +48,7 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
     # don't delete images.
     base, ext = os.path.splitext(key.name)
     # only photos
-    if ext.lower() in PHOTO_EXTENSIONS: continue
+    if ext.lower()[:1] in PHOTO_EXTENSIONS: continue
 
     key.delete()
 
