@@ -14,13 +14,13 @@ bucket = s3.get_bucket(settings.S3_BUCKET)
 client = trovebox.Trovebox()
 albums = dict((name(album), album) for album in client.albums.list())
 
+PHOTO_EXTENSIONS = getattr(settings, 'PHOTO_EXTENSIONS', ['jpg', 'png'])
+
 for key in bucket.list(settings.S3_UPLOAD_FOLDER):
 
     base, ext = os.path.splitext(key.name)
-    # skip folders.
-    if not ext: continue
-    # skip dot files.
-    if base.startswith('.'): continue
+    # only photos
+    if not ext.lower() in PHOTO_EXTENSIONS: continue
 
     # set up an album if required.
     album = os.path.basename(os.path.dirname(key.name))
