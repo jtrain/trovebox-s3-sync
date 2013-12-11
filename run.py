@@ -40,4 +40,5 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
     key.delete()
 
 for key in bucket.list(settings.S3_UPLOAD_FOLDER):
+    if key.name == settings.S3_UPLOAD_FOLDER + '/': continue
     key.delete()
