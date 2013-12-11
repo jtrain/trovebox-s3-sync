@@ -44,4 +44,11 @@ for key in bucket.list(settings.S3_UPLOAD_FOLDER):
 
 for key in bucket.list(settings.S3_UPLOAD_FOLDER):
     if key.name == settings.S3_UPLOAD_FOLDER + '/': continue
+
+    # don't delete images.
+    base, ext = os.path.splitext(key.name)
+    # only photos
+    if ext.lower() in PHOTO_EXTENSIONS: continue
+
     key.delete()
+
