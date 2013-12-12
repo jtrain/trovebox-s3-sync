@@ -12,7 +12,7 @@ s3 = boto.connect_s3(settings.S3_ACCESS_KEY, settings.S3_ACCESS_SECRET)
 bucket = s3.get_bucket(settings.S3_BUCKET)
 
 client = trovebox.Trovebox()
-albums = dict((name(album), album) for album in client.albums.list())
+albums = dict((name(album), album) for album in client.albums.list(pageSize=0))
 
 PHOTO_EXTENSIONS = getattr(settings, 'PHOTO_EXTENSIONS', ['jpg', 'png'])
 
